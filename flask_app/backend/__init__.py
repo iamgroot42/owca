@@ -8,9 +8,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         # a default secret that should be overridden by instance config
-        SECRET_KEY="dev",
-        # store the database in the instance folder
-        DATABASE=os.path.join(app.instance_path, "backend.sqlite"),
+        SECRET_KEY="dev"
     )
 
     if test_config is None:
@@ -26,9 +24,15 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route("/hello")
-    def hello():
-        return "Hello, World!"
+    # A platypus?
+    @app.route("/platypus")
+    def platypus():
+        return '<img src="https://thumbs.gfycat.com/AdorableFailingJackal-size_restricted.gif">'
+
+    # Perry the Platypus?!
+    @app.route("/perry")
+    def perry():
+        return '<img src="https://i.pinimg.com/originals/67/78/4b/67784bf35a65ecd7c80843cc2cd5e6cd.gif">'
 
     # register the database commands
     from backend import db
@@ -36,10 +40,11 @@ def create_app(test_config=None):
     db.init_app(app)
 
     # apply the blueprints to the app
-    from backend import auth, blog
+    from backend import course, auth, home
 
+    app.register_blueprint(course.bp)
     app.register_blueprint(auth.bp)
-    app.register_blueprint(blog.bp)
+    app.register_blueprint(home.bp)
 
     # make url_for('index') == url_for('blog.index')
     # in another app, you might define a separate main index here with

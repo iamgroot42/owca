@@ -1,18 +1,37 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - Backend</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-  <h1><a href="{{ url_for('index') }}">Backend</a></h1>
-  <ul>
-    {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-    {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
-    {% endif %}
-  </ul>
+<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+
+<nav class="navbar navbar-dark bg-primary">
+  <a class="navbar-brand" href="{{ url_for('index') }}">
+    <img src="{{ url_for('static', filename='perry_smol.jpg') }}" width="30" height="30" alt="">
+    OWCA
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+
+      {% for course, link in courses%}
+        <a class="nav-item nav-link" href="{{link}}">{{course}}</a>
+      {% endfor %}
+
+      {% if g.user %}
+        <a class="nav-item nav-link ml-auto" href="{{ url_for('auth.logout') }}">Logout</a>
+      {% else %}
+        <a class="nav-item nav-link ml-auto" href="{{ url_for('auth.login') }}">Login</a>
+        <a class="nav-item nav-link ml-auto" href="{{ url_for('auth.register') }}">Signup</a>
+      {% endif %}
+
+      <!-- <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a> -->
+    </div>
+  </div>
+
 </nav>
+
 <section class="content">
   <header>
     {% block header %}{% endblock %}
