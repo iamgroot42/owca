@@ -1,24 +1,17 @@
 class Course:
-    def __init__(self, id, instructor, session):
+    def __init__(self, id, instructor, session, description, tas):
         self.id = id
         self.instructor = instructor
-        self.tas = []
+        self.tas = tas
         self.session = session
-        self.description = ""
+        self.description = description
         self.assignments = []
-        self.submissions = {}
         self.meetings    = []
         self.annoucements = []
-    
-    def update_description(self, description):
-        self.description = description
     
     def announce(self, annoucement):
         self.annoucements.append(annoucement)
     
-    def add_ta(self, ta):
-        self.tas.append(ta)
-
     def add_assignment(self, assignment):
         self.assignments.append(assignment)
     
@@ -33,9 +26,5 @@ class Course:
         if assignment.has_passed():
             return False
         else:
-            # Will overwrite user's submission if exists
-            submission.submitted()
-            submissions = self.submissions.get(assignment.id, [])
-            submissions.append(submission)
-            self.submissions[assignment.id] = submissions
+            # Redirect to Colab
             return True

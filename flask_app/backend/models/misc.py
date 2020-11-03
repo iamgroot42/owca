@@ -20,12 +20,9 @@ class TA(User):
 
 
 class Instructor(TA):
-    def __init__(self, user_id):
+    def __init__(self, user_id, courses):
         super(Instructor, self).__init__(user_id)
-        self.courses = []
-    
-    def add_course(self, course):
-        self.courses = course
+        self.courses = courses
 
 
 class Session:
