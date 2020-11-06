@@ -2,10 +2,10 @@ from datetime import datetime, timedelta
 from .user import User
 
 class Announcement:
-    def __init__(self, title, text):
+    def __init__(self, title, text, timestamp=None):
         self.title = title
         self.text = text
-        self.timestamp = datetime.now()
+        if timestamp is None: self.timestamp = datetime.now()
 
 class TA(User):
     def __init__(self, user_id):

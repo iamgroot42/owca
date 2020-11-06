@@ -15,9 +15,7 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
 
-      {% for course, link in courses%}
-        <a class="nav-item nav-link" href="{{link}}">{{course}}</a>
-      {% endfor %}
+      <!-- <a class="nav-item nav-link" href="{{link}}">{{course}}</a> -->
 
       {% if g.user %}
         <a class="nav-item nav-link ml-auto" href="{{ url_for('auth.logout') }}">Logout</a>

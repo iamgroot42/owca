@@ -12,25 +12,61 @@ from backend.db import get_db
 
 from tinydb import Query
 from .models.user import User
+from .models.assignment import Assignment
+from .models.course import Course
+from datetime import datetime
 
 bp = Blueprint("home", __name__)
 
+def get_timer_content(dates):
+    content = []
+    nowtime = datetime.now()
+    for d in dates:
+        diff = (d - nowtime)
+        if diff.days > 0:
+            suffix = "Days" if diff.days > 1 else "Day"
+            content.append("%d %s" % (diff.days, suffix))
+        elif diff.seconds > 3600:
+            suffix = "Hours" if (diff.seconds // 3600) > 1 else "Hour"
+            content.append("%d %s" % (diff.seconds // 3600, suffix))
+        else:
+            suffix = "Minutes" if (diff.seconds // 60) > 1 else "Minute"
+            content.append("%d %s" % (diff.seconds // 60, suffix))
+    return content
 
 @bp.route("/")
 @login_required
 def index():
     """Home view"""
     """Show all upcoming deadlines and list courses."""
-    # db = get_db()
 
-    # Get current user's courses
+    coursedb = get_db()[1]
+
+    # Get current user's course IDs
     courses = g.user.get_courses()
-    # Get deadlines for those courses
-    deadlines = g.user.get_assignments()
+    print(courses)
+
+    # Get courses from course DB
+    deadlines = []
+    for course in courses:
+        act_course = coursedb.search(Query().id == course)[0]["assignments"]
+        for ccc in act_course:
+            print(ccc)
+            deadlines.append(Assignment(**ccc))
     # Pick only the ones that are due 
     deadlines = [x for x in deadlines if not x.has_passed()]
+    # Sort by due date
+    deadlines = sorted(deadlines, key=lambda x: x.due_date)
+    days_left = get_timer_content([x.due_date for x in deadlines])
+    due_today = [((x.due_date - datetime.now()).days == 0) for x in deadlines]
     # Get them ready with tags, sort by due date
-    return render_template("home/index.html", deadlines=deadlines, courses=courses)
+    today = 1 + (datetime.today().weekday() + 1)%7
+    return render_template("home/index.html",
+                    deadlines=deadlines,
+                    courses=courses,
+                    badges=days_left,
+                    due_today=due_today,
+                    today=today)
 
 
 # @bp.route("/create", methods=("GET", "POST"))
