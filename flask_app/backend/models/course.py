@@ -1,15 +1,20 @@
 class Course:
-    def __init__(self, id, instructor, session, description, tas):
-        self.id = id
-        self.instructor = instructor
-        self.tas = tas
-        self.session = session
-        self.description = description
+    def __init__(self, data_list):
+        self.course_code = data_list[0]
+        self.instructor  = data_list[1]
+        self.tas         = data_list[2].split(",")
+        self.description = data_list[3]
+        self.meeting_lnk = data_list[4]
+        self.schedule    = data_list[5]
+        self.syllabus    = data_list[6]
+        self.course_site = data_list[7]
+        self.instr_oh    = data_list[8]
+        self.course_name = data_list[9]
+        
         self.assignments = []
-        self.meetings    = []
         self.annoucements = []
     
-    def announce(self, annoucement):
+    def add_announcement(self, annoucement):
         self.annoucements.append(annoucement)
     
     def add_assignment(self, assignment):

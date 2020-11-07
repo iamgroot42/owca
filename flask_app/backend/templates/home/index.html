@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1 class="display-4">{% block title %}Welcome, {{g.user.id}} {% endblock %}</h1>
+  <h1 class="display-4">{% block title %}Welcome, {{g.user.name}} {% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -28,7 +28,7 @@
             {% endif %}
               
             <div class="d-flex w-100 justify-content-between">
-              <h6 class="mb-1">{{deadline.name}}</h6>
+              <h6 class="mb-1">{{deadline.title}}</h6>
               <small> {{badges[loop.index0]}}</small>
             </div>
             <p class="mb-1">{{deadline.description}}</p>
