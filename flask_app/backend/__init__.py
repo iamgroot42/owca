@@ -24,16 +24,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # A platypus?
-    @app.route("/platypus")
-    def platypus():
-        return '<img src="https://thumbs.gfycat.com/AdorableFailingJackal-size_restricted.gif">'
-
-    # Perry the Platypus?!
-    @app.route("/perry")
-    def perry():
-        return '<img src="https://i.pinimg.com/originals/67/78/4b/67784bf35a65ecd7c80843cc2cd5e6cd.gif">'
-
     # register the database commands
     from backend import db
 

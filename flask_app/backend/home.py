@@ -40,19 +40,18 @@ def index():
     """Home view"""
     """Show all upcoming deadlines and list courses."""
 
-    coursedb = get_db()[1]
+    coursedb = get_db()[0]
 
     # Get current user's course IDs
     courses = g.user.get_courses()
-    print(courses)
 
     # Get courses from course DB
     deadlines = []
-    for course in courses:
-        act_course = coursedb.search(Query().id == course)[0]["assignments"]
-        for ccc in act_course:
-            print(ccc)
-            deadlines.append(Assignment(**ccc))
+    for id in courses:
+        act_course = coursedb.get(id)
+        deadlines += act_course.get_assignments()
+    
+
     # Pick only the ones that are due 
     deadlines = [x for x in deadlines if not x.has_passed()]
     # Sort by due date
@@ -67,71 +66,3 @@ def index():
                     badges=days_left,
                     due_today=due_today,
                     today=today)
-
-
-# @bp.route("/create", methods=("GET", "POST"))
-# @login_required
-# def create():
-#     """Create a new post for the current user."""
-#     if request.method == "POST":
-#         title = request.form["title"]
-#         body = request.form["body"]
-#         error = None
-
-#         if not title:
-#             error = "Title is required."
-
-#         if error is not None:
-#             flash(error)
-#         else:
-#             db = get_db()
-#             db.execute(
-#                 "INSERT INTO post (title, body, author_id) VALUES (?, ?, ?)",
-#                 (title, body, g.user["id"]),
-#             )
-#             db.commit()
-#             return redirect(url_for("blog.index"))
-
-#     return render_template("blog/create.html")
-
-
-# @bp.route("/<int:id>/update", methods=("GET", "POST"))
-# @login_required
-# def update(id):
-#     """Update a post if the current user is the author."""
-#     post = get_post(id)
-
-#     if request.method == "POST":
-#         title = request.form["title"]
-#         body = request.form["body"]
-#         error = None
-
-#         if not title:
-#             error = "Title is required."
-
-#         if error is not None:
-#             flash(error)
-#         else:
-#             db = get_db()
-#             db.execute(
-#                 "UPDATE post SET title = ?, body = ? WHERE id = ?", (title, body, id)
-#             )
-#             db.commit()
-#             return redirect(url_for("blog.index"))
-
-#     return render_template("blog/update.html", post=post)
-
-
-# @bp.route("/<int:id>/delete", methods=("POST",))
-# @login_required
-# def delete(id):
-#     """Delete a post.
-
-#     Ensures that the post exists and that the logged in user is the
-#     author of the post.
-#     """
-#     get_post(id)
-#     db = get_db()
-#     db.execute("DELETE FROM post WHERE id = ?", (id,))
-#     db.commit()
-#     return redirect(url_for("blog.index"))

@@ -40,43 +40,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        q = Query()
-        result = get_db()[0].search(q.id == user_id)
-        g.user = User(id=result[0]["id"], courses=result[0]["courses"])
-
-
-@bp.route("/register", methods=("GET", "POST"))
-def register():
-    """Register a new user.
-
-    Validates that the username is not already taken. Hashes the
-    password for security.
-    """
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        db = get_db()[0]
-        error = None
-
-        if not username:
-            error = "Username is required."
-        elif not password:
-            error = "Password is required."
-        elif len(db.search(Query().id == username)) > 0:
-            print(db.search(Query().id == username))
-            error = "User {0} is already registered.".format(username)
-
-        if error is None:
-            # the name is available, store it in the database and go to
-            # the login page
-            db.insert({"id": username,
-                "password": generate_password_hash(password),
-                "courses": []})
-            return redirect(url_for("auth.login"))
-
-        flash(error)
-
-    return render_template("auth/register.html")
+        g.user = get_db()[1].get(user_id, None)
 
 
 @bp.route("/login", methods=("GET", "POST"))
@@ -85,20 +49,21 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        db = get_db()[0]
         error = None
-        user = db.search(Query().id == username)
-        print(user)
+        user_password = get_db()[2].get(username, None)
 
-        if len(user) == 0:
+        print(username)
+        print(get_db()[2])
+
+        if user_password is None:
             error = "Incorrect username."
-        elif not check_password_hash(user[0]["password"], password):
+        elif not check_password_hash(user_password, password):
             error = "Incorrect password."
 
         if error is None:
             # store the user id in a new session and return to the index
             session.clear()
-            session["user_id"] = user[0]["id"]
+            session["user_id"] = username
             return redirect(url_for("index"))
 
         flash(error)
