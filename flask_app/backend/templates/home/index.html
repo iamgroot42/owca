@@ -6,37 +6,46 @@
 
 {% block content %}
 <hr>
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-8">
       <h5>Schedule</h5>
-      <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst={{today}}&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=aGNpZmFsbDIwMjBAZ21haWwuY29t&amp;src=MDhhdWs3aTFrOWxxcmJsMTlwYTdsYmw0dDBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%23F4511E&amp;color=%230B8043&amp;showNav=1&amp;showDate=1&amp;showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=1&amp;showTz=0&amp;mode=WEEK"
-      style="border-width:0" width="700" height="450" frameborder="0" scrolling="no"></iframe>
     </div>
     <div class="col">
-      <div class="row">
-        <h5>Upcoming Deadlines</h5>
-      </div>
-      <div class="row">
+      <h5>Upcoming Deadlines</h5>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-8">
+      <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst={{today}}&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=aGNpZmFsbDIwMjBAZ21haWwuY29t&amp;src=MDhhdWs3aTFrOWxxcmJsMTlwYTdsYmw0dDBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%23F4511E&amp;color=%230B8043&amp;showNav=1&amp;showDate=1&amp;showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=1&amp;showTz=0&amp;mode=WEEK"
+      style="border-width:0" width="770" height="400" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="col">
 
-        <div class="list-group pre-scrollable" style="max-height: 68vh;">
+        <div class="list-group pre-scrollable" style="max-height: 63vh;">
           {% for deadline in deadlines%}
             {% if due_today[loop.index0] %}
-              <a href= {{deadline.assignment_link}} class="list-group-item list-group-item-action flex-column align-items-start active" target="_blank">
+              <a href= "{{deadline.upload_link}}" class="list-group-item list-group-item-action flex-column align-items-start active" target="_blank">
             {% else %}
-              <a href= {{deadline.assignment_link}} class="list-group-item list-group-item-action flex-column align-items-start" target="_blank">
+              <a href="{{deadline.upload_link}}" class="list-group-item list-group-item-action flex-column align-items-start" target="_blank">
             {% endif %}
               
             <div class="d-flex w-100 justify-content-between">
               <h6 class="mb-1">{{deadline.title}}</h6>
               <small> {{badges[loop.index0]}}</small>
             </div>
-            <p class="mb-1">{{deadline.description}}</p>
+
+            {% if deadline.description|length > 100 %}
+              <p class="mb-1">{{deadline.description[:100]}} ...</p>
+            {% else %}
+              <p class="mb-1">{{deadline.description}}</p>
+            {% endif %}
+
             <small>Due: {{deadline.due_date}}</small>
           </a>
           {% endfor %}
         </div>
-      </div>
     </div>
   </div>
 </div>

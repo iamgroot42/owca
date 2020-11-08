@@ -23,6 +23,9 @@ class Course:
     def get_assignments(self):
         return self.assignments
     
+    def get_announcements(self):
+        return self.annoucements
+    
     def submit(self, assignment, submission):
         # If deadline has not passed, accept submission
         if assignment not in self.assignments:

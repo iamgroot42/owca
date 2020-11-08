@@ -55,11 +55,14 @@ def index():
     # Pick only the ones that are due 
     deadlines = [x for x in deadlines if not x.has_passed()]
     # Sort by due date
-    deadlines = sorted(deadlines, key=lambda x: x.due_date)
+    deadlines = sorted(deadlines,
+        key=lambda x: x.due_date,
+        reverse=True)
     days_left = get_timer_content([x.due_date for x in deadlines])
     due_today = [((x.due_date - datetime.now()).days == 0) for x in deadlines]
     # Get them ready with tags, sort by due date
     today = 1 + (datetime.today().weekday() + 1)%7
+
     return render_template("home/index.html",
                     deadlines=deadlines,
                     courses=courses,
