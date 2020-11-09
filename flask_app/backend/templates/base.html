@@ -23,14 +23,14 @@
         {% for k,v in g.db[0].items() %}
           {% if k in g.user.courses %}
             <li class="nav-item">
-              <a class="nav-link" href="/course/{{k}}">{{v.course_name}}</a>
+              <a class="nav-link border-left" href="/course/{{k}}">{{v.course_name}}</a>
             </li>  
           {% endif %}
         {% endfor %}
 
       </ul>
     
-      <a class="nav-item nav-link ml-auto" href="{{ url_for('auth.logout') }}">Logout</a>
+      <a class="nav-item nav-link ml-auto border-left" href="{{ url_for('auth.logout') }}">Logout</a>
       
     </div>
   </nav>
