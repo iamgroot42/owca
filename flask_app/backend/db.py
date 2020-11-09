@@ -42,8 +42,9 @@ def init_db(EXCEL_FILE_PATH):
     users   = data['Users']
     assgts  = data['Assignments']
     anncts  = data['Announcements']
+    resources = data['AssignmentResources']
 
-    course_objs = make_course_objects(courses, assgts, anncts)
+    course_objs = make_course_objects(courses, assgts, anncts, resources)
     user_objs   = make_user_objects(users)
     auth_objs   = {x[0]:x[1] for x in auth.values}
 

@@ -4,7 +4,7 @@ from backend.models.misc import Announcement
 from backend.models.user import User
 
 
-def make_course_objects(courses, assignments, announcements):
+def make_course_objects(courses, assignments, announcements, assignment_resources):
     course_map = {}
     # Make course objects
     for course in courses.values:
@@ -20,7 +20,12 @@ def make_course_objects(courses, assignments, announcements):
     # Iterate through assignments, add to courses
     for assignment in assignments.values:
         courseid = assignment[1]
-        assgt = Assignment(assignment[2:])
+        # add assignment attachments/resources to the assignment object
+        resource_attachments = {} 
+        for resource in assignment_resources.values:
+            if resource[1] == assignment[0]:
+                resource_attachments[resource[2]] = resource[3]
+        assgt = Assignment(assignment[2:], resource_attachments)
         course_map[courseid].add_assignment(assgt)
     
     return course_map

@@ -67,6 +67,22 @@
                   <hr>
                   {{ assignment.description }}
                   <hr>
+                  {%  if assignment.resources|length > 0 %}
+                  <div class="row">
+                    <div class= "col">
+                    <h5>Attachments</h5>
+                      <ol>
+                      {% for resource in assignment.resources %}
+                      <div class = "row">
+                        <li><a href="{{ assignment.resources[resource] }}" target="_blank"> {{ resource }} </a></li>
+                      </div>
+                      {% endfor %}
+                    </ol>
+                  </div>
+                  <hr>
+                  </div>
+                  {% endif %}
+                  
                   <div class="row">
                     <div class="col">
                       {% if assignment.max_score != None%}
@@ -91,6 +107,7 @@
     </div>
       
     <div class="col">
+      
       <h4> Annoucements </h4>
       <br>
       <div class="list-group pre-scrollable" style="max-height: 52vh;">
@@ -109,6 +126,7 @@
         </a>
         {% endfor %}
       </div>
+    
     </div>
   </div>
 </div>

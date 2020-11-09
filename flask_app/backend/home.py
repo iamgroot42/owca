@@ -50,7 +50,6 @@ def index():
     for id in courses:
         act_course = coursedb.get(id)
         deadlines += act_course.get_assignments()
-    
 
     # Pick only the ones that are due 
     deadlines = [x for x in deadlines if not x.has_passed()]
