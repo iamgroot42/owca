@@ -1,7 +1,6 @@
 ### How to run the app. 
 
-1. move to the src folder in mail_server. 
-2. Run the flask app -- python app.py
+1. Run the flask app -- python app.py
 
 
 ### Example rest call to the end point exposed
