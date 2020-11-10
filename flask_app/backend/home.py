@@ -61,10 +61,11 @@ def index():
     due_today = [((x.due_date - datetime.now()).days == 0) for x in deadlines]
     # Get them ready with tags, sort by due date
     today = 1 + (datetime.today().weekday() + 1)%7
+    calendar_link = "%s&amp;height=600&amp;wkst=%d&amp;bgcolor=%23ffffff&amp;showNav=1&amp;showDate=1&amp;showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=1&amp;showTz=0&amp;mode=WEEK" % (g.user.calendar_link, today)
 
     return render_template("home/index.html",
                     deadlines=deadlines,
                     courses=courses,
                     badges=days_left,
                     due_today=due_today,
-                    today=today)
+                    calendar_link=calendar_link)
