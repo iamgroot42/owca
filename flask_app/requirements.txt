@@ -1,1 +1,5 @@
 xlrd
+tinydb
+werkzeug
+pandas
+numpy
