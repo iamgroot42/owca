@@ -62,6 +62,8 @@ def index():
     # Get them ready with tags, sort by due date
     today = 1 + (datetime.today().weekday() + 1)%7
 
+    print(g.user.calendar_link)
+
     return render_template("home/index.html",
                     deadlines=deadlines,
                     courses=courses,
