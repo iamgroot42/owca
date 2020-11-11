@@ -4,7 +4,7 @@ class Course:
         self.instructor  = data_list[1]
         self.tas         = data_list[2].split(",") if type(data_list[2]) == str else ""
         self.description = data_list[3] if type(data_list[3]) == str else ""
-        self.meeting_lnk = data_list[4]
+        self.meeting_lnk = data_list[4] if type(data_list[4]) == str else ""
         self.schedule    = data_list[5] if type(data_list[5]) == str else ""
         self.syllabus    = data_list[6] if type(data_list[6]) == str else ""
         self.course_site = data_list[7] if type(data_list[7]) == str else ""
