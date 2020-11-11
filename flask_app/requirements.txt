@@ -1,3 +1,0 @@
-xlrd
-werkzeug
-flask
