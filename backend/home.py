@@ -67,4 +67,5 @@ def index():
                     courses=courses,
                     badges=days_left,
                     due_today=due_today,
+                    calendar_link=g.user.calendar_link,
                     today=today)

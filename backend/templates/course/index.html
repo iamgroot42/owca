@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h1> {% block title %} {{code}} : {{name}} {% endblock %} </h1>
+    </div>
+  </div>
+  {% if description|length > 0 %}
+    <div class="row">
+      <div class="col-sm">
+        <p> {{description}} </p>
+      </div>
+    </div>
+  {% endif %}
+  <br>
+
+  <div class="row">
+    {% if syllabus|length != 0 %}
+      <div class="col-sm">
+        <a href="{{syllabus}}" class="btn btn-info btn-lg btn-block" role="button" target="_blank">Syllabus</a>
+      </div>
+    {% endif %}
+    {% if class_link|length != 0 %}
+      <div class="col-sm">
+        <a href="{{class_link}}" class="btn btn-success btn-lg btn-block" role="button" target="_blank">Join Class/Meeting</a>
+      </div>
+    {% endif %}
+    {% if schedule|length != 0 %}
+      <div class="col-sm">
+        <a href="{{schedule}}" class="btn btn-dark btn-lg btn-block" role="button" target="_blank">Schedule</a>
+      </div>
+    {% endif %}
+    {% if office_hours|length != 0 %}
+      <div class="col-sm">
+        <a href="{{office_hours}}" class="btn btn-secondary btn-lg btn-block" role="button" target="_blank">Office Hours</a>
+      </div>
+    {% endif %}
+  </div>
+  
+  <hr>
+  
+  <div class="row">
+    <div class="col-8 border-right">
+      <h4> Assignments </h4> <br>
+      {% if assignments|length == 0%}
+        <p>No annoucements to show!</p>
+      {% else %}
+        <div class="pre-scrollable" style="max-height: 70vh;">
+          <div class="accordion" id="accordionExample">
+            {% for assignment in assignments %}
+              <div class="card">
+                <div class="card-header" id="heading{{loop.index}}">
+                  <h2 class="mb-0">
+                    {% if loop.index0 == 0 %}
+                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{loop.index}}" aria-expanded="true" aria-controls="collapse{{loop.index}}">
+                    {% else %}
+                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse{{loop.index}}" aria-expanded="false" aria-controls="collapse{{loop.index}}">
+                    {% endif %}
+                      {{ assignment.title }}
+                    </button>
+                  </h2>
+                </div>
+                {% if loop.index0 == 0 %}
+                  <div id="collapse{{loop.index}}" class="collapse show" aria-labelledby="heading{{loop.index}}" data-parent="#accordionExample">
+                {% else %}
+                  <div id="collapse{{loop.index}}" class="collapse" aria-labelledby="heading{{loop.index}}" data-parent="#accordionExample">
+                {% endif %}
+                  <div class="card-body">
+                    <h5> Due: {{assignment.due_date}} </h5>
+                    <hr>
+                    {{ assignment.description }}
+                    <hr>
+                    {%  if assignment.resources|length > 0 %}
+                    <div class="row">
+                      <div class= "col">
+                      <h5>Attachments</h5>
+                        <ol>
+                        {% for resource in assignment.resources %}
+                        <div class = "row">
+                          <li><a href="{{ assignment.resources[resource] }}" target="_blank"> {{ resource }} </a></li>
+                        </div>
+                        {% endfor %}
+                      </ol>
+                    </div>
+                    <hr>
+                    </div>
+                    {% endif %}
+                    <div class="row">
+                      <div class="col">
+                        {% if assignment.max_score != None%}
+                          Max Score: {{assignment.max_score}}
+                        {% endif %}
+                      </div>
+                      <div class="col-sm">
+                        <a href="{{assignment.upload_link}}" class="btn btn-primary float-right" role="button" target="_blank">Submit</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}  
+          </div>
+        </div>
+      {% endif %}
+    </div>
+      
+    <div class="col">
+      <div class="row justify-content-center">
+        <h4> Annoucements </h4>
+      </div>
+      <br>
+      <div class="row">
+      {% if annoucements|length == 0%}
+        <p>No annoucements to show!</p>
+      {% else %}
+        <div class="list-group pre-scrollable" style="max-height: 65vh;">
+          {% for annoucement in annoucements%}
+            <a href="{{annoucement.link}}" class="list-group-item list-group-item-action flex-column align-items-start" target="_blank">
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1">{{annoucement.title}}</h6>
+            </div>
+            {% if annoucement.description|length > 100 %}
+              <p class="mb-1">{{annoucement.description[:100]}} ...</p>
+            {% else %}
+              <p class="mb-1">{{annoucement.description}}</p>
+            {% endif %}
+            <small>{{annoucement.timestamp}}</small>
+          </a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    <hr>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

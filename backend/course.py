@@ -29,13 +29,13 @@ def index(id):
         assignments = sorted(course.get_assignments(),
                         key=lambda x: x.due_date,
                         reverse=True)
-        for z in assignments:
-            print(z.attachments)
+    
         return render_template("course/index.html",
                             course=id,
                             class_link=course.meeting_lnk,
                             code=course.course_code,
                             name=course.course_name,
+                            description=course.description,
                             schedule=course.schedule,
                             annoucements=annoucements,
                             syllabus=course.syllabus,
