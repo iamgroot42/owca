@@ -18,10 +18,8 @@
   <br>
   <div class="row">
     <div class="col-8">
-      <!-- <iframe src="{{calendar_link}}"
-      style="border-width:0" width="770" height="400" frameborder="0" scrolling="no"></iframe> -->
       <iframe src="{{calendar_link}}&amp;height=600&amp;wkst={{today}}&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=aGNpZmFsbDIwMjBAZ21haWwuY29t&amp;src=MDhhdWs3aTFrOWxxcmJsMTlwYTdsYmw0dDBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%23F4511E&amp;color=%230B8043&amp;showNav=1&amp;showDate=1&amp;showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=1&amp;showTz=0&amp;mode=WEEK"
-      style="border-width:0" width="770" height="400" frameborder="0" scrolling="no"></iframe>
+      style="border-width:0; width: 100%; height: 65vh;" frameborder="0" scrolling="no"></iframe>
     </div>
     <div class="col">
 
@@ -51,28 +49,4 @@
     </div>
   </div>
 </div>
-
-
-<!-- <ul>
-  {% for deadline in deadlines%}
-    <li>Deadline {{deadline.name}} due on {{deadline.due_date}}. Get more information <a href= {{deadline.assignment_link}} >here</a></li>
-  {% endfor %}
-</ul> -->
-  <!-- {% for post in posts %} -->
-    <!-- <article class="post">
-      <header>
-        <div>
-          <h1>{{ post['title'] }}</h1>
-          <div class="about">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
-        </div>
-        {% if g.user['id'] == post['author_id'] %}
-          <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
-        {% endif %}
-      </header>
-      <p class="body">{{ post['body'] }}</p>
-    </article> -->
-    <!-- {% if not loop.last %}
-      <hr>
-    {% endif %} -->
-  <!-- {% endfor %} -->
 {% endblock %}

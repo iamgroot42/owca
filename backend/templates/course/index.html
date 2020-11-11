@@ -3,15 +3,15 @@
 
 <br>
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-sm">
+    <div class="col">
       <h1> {% block title %} {{code}} : {{name}} {% endblock %} </h1>
     </div>
   </div>
   {% if description|length > 0 %}
     <div class="row">
-      <div class="col-sm">
+      <div class="col">
         <p> {{description}} </p>
       </div>
     </div>
@@ -20,23 +20,23 @@
 
   <div class="row">
     {% if syllabus|length != 0 %}
-      <div class="col-sm">
+      <div class="col">
         <a href="{{syllabus}}" class="btn btn-info btn-lg btn-block" role="button" target="_blank">Syllabus</a>
       </div>
     {% endif %}
     {% if class_link|length != 0 %}
-      <div class="col-sm">
-        <a href="{{class_link}}" class="btn btn-success btn-lg btn-block" role="button" target="_blank">Join Class/Meeting</a>
+      <div class="col">
+        <a href="{{class_link}}" class="btn btn-success btn-lg btn-block" role="button" target="_blank">Join Class</a>
       </div>
     {% endif %}
     {% if schedule|length != 0 %}
-      <div class="col-sm">
+      <div class="col">
         <a href="{{schedule}}" class="btn btn-dark btn-lg btn-block" role="button" target="_blank">Schedule</a>
       </div>
     {% endif %}
     {% if office_hours|length != 0 %}
-      <div class="col-sm">
-        <a href="{{office_hours}}" class="btn btn-secondary btn-lg btn-block" role="button" target="_blank">Office Hours</a>
+      <div class="col">
+        <a href="{{office_hours}}" class="btn btn-warning btn-lg btn-block" role="button" target="_blank">Office Hrs</a>
       </div>
     {% endif %}
   </div>
@@ -95,7 +95,7 @@
                           Max Score: {{assignment.max_score}}
                         {% endif %}
                       </div>
-                      <div class="col-sm">
+                      <div class="col">
                         <a href="{{assignment.upload_link}}" class="btn btn-primary float-right" role="button" target="_blank">Submit</a>
                       </div>
                     </div>

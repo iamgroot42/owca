@@ -1,23 +1,21 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  
 {% endblock %}
 
 
-
 {% block content %}
-<div class="container" style="justify-content: center; align-items: center;">
+<div class="container-fluid" style="justify-content: center; align-items: center;">
   <div class="row"> <br><br><br><br><br><br><br>
   </div>
   <div class="row">
-    <div class="col lg-5"></div>
+    <div class="col-4"></div>
     <div class="col border">
       <h1>{% block title %}Log In{% endblock %}</h1> <br>
     <form method="post">
       <div class="form-group">
         <label for="username">Computing ID</label>
-        <input name="username" class="form-control" id="username" placeholder="Enter computing ID" required>
+        <input name="username" class="form-control" id="username" placeholder="Computing ID" required>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
@@ -27,7 +25,7 @@
     </form>
     <br>
   </div>
-  <div class="col lg-5"></div>
+  <div class="col-4"></div>
   </div>
 </div>
 
