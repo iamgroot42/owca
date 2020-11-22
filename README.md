@@ -5,22 +5,23 @@ HCI Course Project: Team [OWCA](https://phineasandferb.fandom.com/wiki/Organizat
 
 #### Deploying on Heroku
 
-* Remember to set environment flags:
+Remember to set environment flags:
 
 `heroku config:set FLASK_APP=backend`
 
+<hr/>
 
 ### On windows (PowerShell)
 
-`$env:FLASK_APP = "backend"`
 `$env:FLASK_ENV = "development"`
-`flask run`
+<br>
+`python wsgi.py`
 
-<br/>
+<hr/>
 
 ### For mail server
 
-`python mail_server.py` from inside `flask_app` directory
+`python mail_server.py`
 
 <hr/>
 
